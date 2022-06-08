@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/retirarafp")
@@ -21,8 +22,17 @@ public class WithdrawAfpController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+    @GetMapping("/listadoR")
+    @ResponseStatus(HttpStatus.OK)
+    public List<WithdrawAfp> getAllSolicitudes(){
+
+        LOGGER.info("Hizo la petición de listado");
+        return withdrawAfpRepository.findAll();
+    }
+
     @PostMapping("/nuevoR")
     @ResponseStatus(HttpStatus.OK)
+    //REGISTRAR SOLICITUD CON VALIDACIONES DE MONTO PERMITIDO
     public String createSolicitud(@RequestBody WithdrawAfp withdrawAfp){
 
         LOGGER.info("Hizo la petición de nuevo");
